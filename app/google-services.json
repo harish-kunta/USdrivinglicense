@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "63749056996",
+    "firebase_url": "https://drivinglicensetest-3961b.firebaseio.com",
+    "project_id": "drivinglicensetest-3961b",
+    "storage_bucket": "drivinglicensetest-3961b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63749056996:android:5e7024bc79c24e02213ff1",
+        "android_client_info": {
+          "package_name": "com.harish.usdrivinglicensetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63749056996-64nkjdesnru5d00nvb738sct4p2esm6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWYun1BjOkhi0uFlfbmOk-lYQNUwcZgwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "63749056996-64nkjdesnru5d00nvb738sct4p2esm6k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
