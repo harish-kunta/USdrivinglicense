@@ -3,14 +3,20 @@ package com.harish.usdrivinglicensetest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -24,11 +30,13 @@ import static com.harish.usdrivinglicensetest.QuestionsActivity.KEY_NAME;
 public class BookmarkActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
+    BookmarksAdapter adapter;
 
     private List<QuestionModel> bookmarksList;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private Gson gson;
+    LinearLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +46,7 @@ public class BookmarkActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Bookmarks");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        coordinatorLayout = findViewById(R.id.coordinatorLayout);
 
         recyclerView = findViewById(R.id.rv_bookmarks);
 
@@ -52,11 +61,42 @@ public class BookmarkActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(layoutManager);
 
-
-
-
-        BookmarksAdapter adapter = new BookmarksAdapter(bookmarksList);
+         adapter = new BookmarksAdapter(bookmarksList,BookmarkActivity.this);
         recyclerView.setAdapter(adapter);
+        enableSwipeToDeleteAndUndo();
+    }
+
+    private void enableSwipeToDeleteAndUndo() {
+        SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(this) {
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+
+                final int position = viewHolder.getAdapterPosition();
+                final QuestionModel item = adapter.getData().get(position);
+
+                adapter.removeItem(position);
+
+
+                Snackbar snackbar = Snackbar
+                        .make(coordinatorLayout, "Item was removed from the list.", Snackbar.LENGTH_LONG);
+                snackbar.setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        adapter.restoreItem(item, position);
+                        recyclerView.scrollToPosition(position);
+                    }
+                });
+
+                snackbar.setActionTextColor(Color.YELLOW);
+                snackbar.show();
+
+            }
+        };
+
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
+        itemTouchhelper.attachToRecyclerView(recyclerView);
     }
 
     @Override

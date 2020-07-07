@@ -15,7 +15,17 @@
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:padding="8dp"
+        android:textStyle="bold"
         android:text="question"/>
+
+    <ImageView
+        android:id="@+id/bookmarkImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:scaleType="fitXY"
+        android:visibility="gone"
+        />
 
     <TextView
         android:id="@+id/answer"
@@ -24,12 +34,4 @@
         android:textColor="@android:color/black"
         android:padding="8dp"
         android:text="answer"/>
-
-    <ImageButton
-        android:id="@+id/delete_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:padding="8dp"
-        android:src="@drawable/delete"/>
 </LinearLayout>

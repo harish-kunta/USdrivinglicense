@@ -176,7 +176,7 @@ public class QuestionsActivity extends AppCompatActivity {
                 }
                 else {
                     finish();
-                    Toast.makeText(QuestionsActivity.this,"no questions",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(QuestionsActivity.this,"No questions available in this set, Will be uploaded soon!",Toast.LENGTH_SHORT).show();
                 }
                 loadingDialog.dismiss();
             }

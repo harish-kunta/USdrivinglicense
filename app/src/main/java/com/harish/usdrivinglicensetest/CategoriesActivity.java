@@ -43,7 +43,7 @@ public class CategoriesActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("States");
+        getSupportActionBar().setTitle("Select your State");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loadingDialog = new Dialog(this);

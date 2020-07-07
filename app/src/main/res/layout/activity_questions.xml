@@ -81,6 +81,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:textColor="@android:color/black"
             android:background="@drawable/rounded_borders"
             android:backgroundTint="#989898" />
@@ -90,6 +92,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:textColor="@android:color/black"
             android:background="@drawable/rounded_borders"
             android:backgroundTint="#989898" />
@@ -99,6 +103,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:textColor="@android:color/black"
             android:background="@drawable/rounded_borders"
             android:backgroundTint="#989898" />
@@ -108,10 +114,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:textColor="@android:color/black"
             android:background="@drawable/rounded_borders"
             android:backgroundTint="#989898"
-            android:text="Button" />
+            />
     </LinearLayout>
 
     <Button
