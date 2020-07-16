@@ -32,6 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -113,7 +114,7 @@ public class QuestionsActivity extends AppCompatActivity {
         list = new ArrayList<>();
 
         loadingDialog.show();
-        myRef.child("SETS").child(category).child("questions").orderByChild("setNo").equalTo(setNo).addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child("SETS").child(category).child("questions").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot snapshot1 : snapshot.getChildren()){
@@ -207,13 +208,13 @@ public class QuestionsActivity extends AppCompatActivity {
                 if (value == 0 && count < 4) {
                     String option = "";
                     if (count == 0) {
-                        option = list.get(position).getOptionA();
+                        option = list.get(position).getOptionA().trim();
                     } else if (count == 1) {
-                        option = list.get(position).getOptionB();
+                        option = list.get(position).getOptionB().trim();
                     } else if (count == 2) {
-                        option = list.get(position).getOptionC();
+                        option = list.get(position).getOptionC().trim();
                     } else if (count == 3) {
-                        option = list.get(position).getOptionD();
+                        option = list.get(position).getOptionD().trim();
                     }
                     playAnim(optionsContainer.getChildAt(count), 0, option);
                     count++;
@@ -230,9 +231,7 @@ public class QuestionsActivity extends AppCompatActivity {
                     if (view instanceof ImageView) {
                         ImageView imageView = (ImageView) view;
                         RequestOptions options = new RequestOptions()
-                                .fitCenter()
-                                .placeholder(R.mipmap.ic_launcher_round)
-                                .error(R.mipmap.ic_launcher_round);
+                                .fitCenter();
                         if(data.isEmpty())
                         {
 
@@ -240,7 +239,12 @@ public class QuestionsActivity extends AppCompatActivity {
                         }
                         else {
                             imageView.setVisibility(View.VISIBLE);
-                            Glide.with(QuestionsActivity.this).load(data).apply(options).into(imageView);
+                            Picasso.get()
+                                    .load(data)
+                                    .error(R.mipmap.ic_launcher)
+                                    .into(imageView);
+                            //Glide.with(QuestionsActivity.this).load(data).apply(options).into(imageView);
+                            //Glide.with(view.getContext()).load("https://www.test-guide.com//images/dmvsigns/Q3-SchoolZone.png").apply(options).dontAnimate().into(imageView);
                         }
                     }
                     else if (view instanceof TextView) {
@@ -296,7 +300,7 @@ public class QuestionsActivity extends AppCompatActivity {
             //incorrect
             selectedOption.setBackground(getResources().getDrawable(R.drawable.rounded_corners));
             selectedOption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#ff0000")));
-            Button correctoption = (Button) optionsContainer.findViewWithTag(list.get(position).getCorrectAns());
+            Button correctoption = (Button) optionsContainer.findViewWithTag(list.get(position).getCorrectAns().trim());
             correctoption.setBackground(getResources().getDrawable(R.drawable.rounded_corners));
             correctoption.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4CAF50")));
         }
