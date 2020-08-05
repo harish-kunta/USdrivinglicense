@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 public class ScoreActivity extends AppCompatActivity {
 
     private TextView scored,total;
@@ -21,6 +24,8 @@ public class ScoreActivity extends AppCompatActivity {
         total= findViewById(R.id.total);
         doneBtn= findViewById(R.id.done_btn);
 
+        loadAds();
+
         scored.setText(String.valueOf(getIntent().getIntExtra("score",0)));
         total.setText("OUT OF "+String.valueOf(getIntent().getIntExtra("total",0)));
         doneBtn.setOnClickListener(new View.OnClickListener() {
@@ -29,5 +34,10 @@ public class ScoreActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    private void loadAds() {
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 }

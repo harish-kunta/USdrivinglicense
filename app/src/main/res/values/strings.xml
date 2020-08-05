@@ -1,4 +1,6 @@
 <resources>
-    <string name="app_name">US Driving License Test</string>
+    <string name="app_name">Dr. Driving: US DMV test</string>
     <string name="sets">Sets</string>
+    <string name="banner_id">ca-app-pub-3305970522368959/8674970941</string>
+    <string name="intertitial_ad_id">ca-app-pub-3305970522368959/6361451180</string>
 </resources>

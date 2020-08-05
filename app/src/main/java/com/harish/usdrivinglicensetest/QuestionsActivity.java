@@ -24,6 +24,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -65,6 +69,8 @@ public class QuestionsActivity extends AppCompatActivity {
     private Gson gson;
     private int matchedQuestionPosition;
 
+    private InterstitialAd mInterstitialAd;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +87,8 @@ public class QuestionsActivity extends AppCompatActivity {
         shareBtn = findViewById(R.id.share_btn);
         nextBtn = findViewById(R.id.next_btn);
         questionImage=findViewById(R.id.imageView);
+
+        loadAds();
 
         preferences = getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         editor=preferences.edit();
@@ -146,6 +154,11 @@ public class QuestionsActivity extends AppCompatActivity {
                             position++;
                             if(position == list.size())
                             {   // Score Activity
+                                if(mInterstitialAd.isLoaded())
+                                {
+                                    mInterstitialAd.show();
+                                    return;
+                                }
                                 Intent scoreIntent = new Intent(QuestionsActivity.this,ScoreActivity.class);
                                 scoreIntent.putExtra("score",score);
                                 scoreIntent.putExtra("total",list.size());
@@ -354,5 +367,32 @@ public class QuestionsActivity extends AppCompatActivity {
         String json = gson.toJson(bookmarksList);
         editor.putString(KEY_NAME, json);
         editor.commit();
+    }
+
+    private void loadAds() {
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.intertitial_ad_id));
+
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+        mInterstitialAd.setAdListener(new AdListener(){
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+                Intent scoreIntent = new Intent(QuestionsActivity.this,ScoreActivity.class);
+                scoreIntent.putExtra("score",score);
+                scoreIntent.putExtra("total",list.size());
+                startActivity(scoreIntent);
+                finish();
+                return;
+
+            }
+        });
     }
 }

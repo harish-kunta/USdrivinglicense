@@ -10,7 +10,7 @@ public class QuestionModel {
     }
 
     public String getQuestion() {
-        return question;
+        return question.trim();
     }
 
     public void setQuestion(String question) {
@@ -18,7 +18,7 @@ public class QuestionModel {
     }
 
     public String getOptionA() {
-        return optionA;
+        return optionA.trim();
     }
 
     public void setOptionA(String optionA) {
@@ -26,7 +26,7 @@ public class QuestionModel {
     }
 
     public String getOptionB() {
-        return optionB;
+        return optionB.trim();
     }
 
     public void setOptionB(String optionB) {
@@ -34,7 +34,7 @@ public class QuestionModel {
     }
 
     public String getOptionC() {
-        return optionC;
+        return optionC.trim();
     }
 
     public void setOptionC(String optionC) {
@@ -42,7 +42,7 @@ public class QuestionModel {
     }
 
     public String getOptionD() {
-        return optionD;
+        return optionD.trim();
     }
 
     public void setOptionD(String optionD) {
@@ -50,7 +50,7 @@ public class QuestionModel {
     }
 
     public String getCorrectAns() {
-        return correctAns;
+        return correctAns.trim();
     }
 
     public void setCorrectAns(String correctAns) {
@@ -66,7 +66,7 @@ public class QuestionModel {
     }
 
     public String getimg_url() {
-        return img_url;
+        return img_url.trim();
     }
 
     public void setimg_url(String img_url) {

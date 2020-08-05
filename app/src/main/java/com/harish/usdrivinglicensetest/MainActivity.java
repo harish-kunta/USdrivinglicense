@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button startBtn,bookmarkBtn;
     private FirebaseAnalytics mFirebaseAnalytics;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
 
         startBtn = findViewById(R.id.start_btn);
         bookmarkBtn= findViewById(R.id.bookmarks_btn);
+
+        MobileAds.initialize(this);
+
+        loadAds();
 
 
         startBtn.setOnClickListener(new View.OnClickListener() {
@@ -40,5 +48,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(bookmarksIntent);
             }
         });
+    }
+
+    private void loadAds() {
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 }

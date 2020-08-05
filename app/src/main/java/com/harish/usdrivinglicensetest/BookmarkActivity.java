@@ -16,6 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -49,6 +52,8 @@ public class BookmarkActivity extends AppCompatActivity {
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
 
         recyclerView = findViewById(R.id.rv_bookmarks);
+
+        loadAds();
 
         preferences = getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         editor=preferences.edit();
@@ -131,5 +136,11 @@ public class BookmarkActivity extends AppCompatActivity {
         String json = gson.toJson(bookmarksList);
         editor.putString(KEY_NAME, json);
         editor.commit();
+    }
+
+    private void loadAds() {
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 }
