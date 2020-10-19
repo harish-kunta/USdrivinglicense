@@ -34,3 +34,12 @@ https://play.google.com/store/apps/details?id=com.harish.usdrivinglicensetest
 - Questions with high probability of getting in the exam
 - Material design UI
 - Powered by Firebase
+
+## Built With
+
+* [Firebase](https://firebase.google.com/) - A comprehensive app development platform
+* [Android Studio](https://developer.android.com/studio) - Android Development tool
+
+## Authors
+
+* **Harish Kunta** - *Initial work* - [Harish Kunta](https://github.com/harishtanu007)
