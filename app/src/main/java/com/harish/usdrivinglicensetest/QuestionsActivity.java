@@ -29,6 +29,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,6 +57,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private Button shareBtn, nextBtn;
     private int count = 0;
     private List<QuestionModel> list;
+    private View questionsView;
     private int position = 0;
     private int score = 0;
     private String category;
@@ -87,6 +89,7 @@ public class QuestionsActivity extends AppCompatActivity {
         shareBtn = findViewById(R.id.share_btn);
         nextBtn = findViewById(R.id.next_btn);
         questionImage=findViewById(R.id.imageView);
+        questionsView=findViewById(R.id.questions_view);
 
         loadAds();
 
@@ -101,10 +104,12 @@ public class QuestionsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(modelMatch()){
                     bookmarksList.remove(matchedQuestionPosition);
-                    bookmarkBtn.setImageDrawable(getDrawable(R.drawable.bookmark_border));
+                    bookmarkBtn.setImageDrawable(getDrawable(R.drawable.star_border));
+                    Snackbar.make(questionsView,"Question removed from Starred list",Snackbar.LENGTH_SHORT).show();
                 }else{
                     bookmarksList.add(list.get(position));
-                    bookmarkBtn.setImageDrawable(getDrawable(R.drawable.bookmark));
+                    bookmarkBtn.setImageDrawable(getDrawable(R.drawable.star_filled));
+                    Snackbar.make(questionsView,"Question added to Starred list",Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -267,10 +272,10 @@ public class QuestionsActivity extends AppCompatActivity {
                         noIndicator.setText(position+1+"/"+list.size());
                         if(modelMatch()){
 
-                            bookmarkBtn.setImageDrawable(getDrawable(R.drawable.bookmark));
+                            bookmarkBtn.setImageDrawable(getDrawable(R.drawable.star_filled));
                         }else{
 
-                            bookmarkBtn.setImageDrawable(getDrawable(R.drawable.bookmark_border));
+                            bookmarkBtn.setImageDrawable(getDrawable(R.drawable.star_border));
 
                         }
                     }

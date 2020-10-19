@@ -7,7 +7,7 @@ android {
         applicationId "com.harish.usdrivinglicensetest"
         minSdkVersion 17
         targetSdkVersion 29
-        versionCode 3
+        versionCode 4
         versionName "1.0"
         multiDexEnabled true
 
@@ -45,6 +45,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-perf:19.0.8'
     implementation 'com.google.android.gms:play-services-ads:19.3.0'
     implementation 'com.android.support:multidex:1.0.3'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

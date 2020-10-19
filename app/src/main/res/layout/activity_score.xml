@@ -58,7 +58,25 @@
             android:textAlignment="center"
             android:text="OUT OF 10" />
     </LinearLayout>
-<FrameLayout
+    <TextView
+        android:id="@+id/summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAlignment="center"
+        android:text="sample summary" />
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageView2"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/celebration"
+        app:layout_constraintVertical_weight="1"
+        app:loopCount="20" />
+   <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="1">
@@ -66,12 +84,14 @@
         android:id="@+id/done_btn"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="Done"
-        android:textColor="@android:color/white"
-        android:background="@drawable/rounded_corners"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"/>
-</FrameLayout>
+        android:background="@drawable/rounded_corners"
+        android:text="Done"
+        android:textColor="@android:color/white" />
+
+
+   </FrameLayout>
+
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
