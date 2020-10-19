@@ -3,4 +3,7 @@
     <string name="sets">Sets</string>
     <string name="banner_id">ca-app-pub-3305970522368959/8674970941</string>
     <string name="intertitial_ad_id">ca-app-pub-3305970522368959/6361451180</string>
+    <string name="help_message">
+        Start - This contains numerous sets of questions for each chosen state (50 U.S. states).\n\nStarred - When you click on the start in the Test mode, the question will be saved here.
+    </string>
 </resources>
