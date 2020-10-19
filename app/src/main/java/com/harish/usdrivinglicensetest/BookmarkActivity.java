@@ -47,7 +47,7 @@ public class BookmarkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bookmark);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Bookmarks");
+        getSupportActionBar().setTitle("Starred");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
 
