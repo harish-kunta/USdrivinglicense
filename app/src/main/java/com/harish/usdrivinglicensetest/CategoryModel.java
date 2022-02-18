@@ -5,8 +5,7 @@ public class CategoryModel {
     private String url;
     private int sets;
 
-    public CategoryModel()
-    {
+    public CategoryModel() {
         //For firebase
     }
 

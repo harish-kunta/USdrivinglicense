@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -23,8 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.CDATASection;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +31,6 @@ public class CategoriesActivity extends AppCompatActivity {
     DatabaseReference myRef = database.getReference();
 
     private Dialog loadingDialog;
-    private RecyclerView recyclerView;
     private List<CategoryModel> list;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -45,19 +41,19 @@ public class CategoriesActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Select your State");
+        getSupportActionBar().setTitle(R.string.select_your_state);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loadAds();
         loadingDialog = new Dialog(this);
         loadingDialog.setContentView(R.layout.loading);
         loadingDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.rounded_corners));
-        loadingDialog.getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        loadingDialog.getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         loadingDialog.setCancelable(false);
 
 
-        recyclerView = findViewById(R.id.rv);
-        LinearLayoutManager layoutManager= new LinearLayoutManager(this);
+        RecyclerView recyclerView = findViewById(R.id.rv);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
 
         recyclerView.setLayoutManager(layoutManager);
@@ -68,11 +64,11 @@ public class CategoriesActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         loadingDialog.show();
-        myRef.child("States").orderByChild("name").addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.child(getString(R.string.states)).orderByChild(getString(R.string.name)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot1 : snapshot.getChildren()){
-                   list.add(dataSnapshot1.getValue(CategoryModel.class));
+                for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                    list.add(dataSnapshot1.getValue(CategoryModel.class));
                 }
                 adapter.notifyDataSetChanged();
                 loadingDialog.dismiss();
@@ -80,7 +76,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(CategoriesActivity.this,error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CategoriesActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                 loadingDialog.dismiss();
                 finish();
             }
@@ -90,8 +86,7 @@ public class CategoriesActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if(item.getItemId() == android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
 

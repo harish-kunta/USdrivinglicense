@@ -3,11 +3,11 @@ package com.harish.usdrivinglicensetest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -41,13 +40,14 @@ public class BookmarkActivity extends AppCompatActivity {
     private Gson gson;
     LinearLayout coordinatorLayout;
 
+    @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmark);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Starred");
+        getSupportActionBar().setTitle(R.string.saved);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
 
@@ -56,7 +56,7 @@ public class BookmarkActivity extends AppCompatActivity {
         loadAds();
 
         preferences = getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
-        editor=preferences.edit();
+        editor = preferences.edit();
         gson = new Gson();
 
         getBookmarks();
@@ -66,7 +66,7 @@ public class BookmarkActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(layoutManager);
 
-         adapter = new BookmarksAdapter(bookmarksList,BookmarkActivity.this);
+        adapter = new BookmarksAdapter(bookmarksList, BookmarkActivity.this);
         recyclerView.setAdapter(adapter);
         enableSwipeToDeleteAndUndo();
     }
@@ -84,7 +84,7 @@ public class BookmarkActivity extends AppCompatActivity {
 
 
                 Snackbar snackbar = Snackbar
-                        .make(coordinatorLayout, "Item was removed from the list.", Snackbar.LENGTH_LONG);
+                        .make(coordinatorLayout, R.string.item_removed, Snackbar.LENGTH_LONG);
                 snackbar.setAction("UNDO", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -112,27 +112,27 @@ public class BookmarkActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void getBookmarks(){
-        String json = preferences.getString(KEY_NAME,"");
+    private void getBookmarks() {
+        String json = preferences.getString(KEY_NAME, "");
 
-        Type type = new TypeToken<List<QuestionModel>>(){}.getType();
+        Type type = new TypeToken<List<QuestionModel>>() {
+        }.getType();
 
-        bookmarksList = gson.fromJson(json,type);
+        bookmarksList = gson.fromJson(json, type);
 
-        if(bookmarksList == null){
+        if (bookmarksList == null) {
             bookmarksList = new ArrayList<>();
         }
     }
 
 
-
-    private void storeBookmarks(){
+    private void storeBookmarks() {
         String json = gson.toJson(bookmarksList);
         editor.putString(KEY_NAME, json);
         editor.commit();

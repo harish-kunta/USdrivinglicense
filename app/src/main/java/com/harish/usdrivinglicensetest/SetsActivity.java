@@ -8,14 +8,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.GridView;
 
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 
 public class SetsActivity extends AppCompatActivity {
 
-    private GridView gridView;
     private InterstitialAd mInterstitialAd;
 
     @Override
@@ -26,15 +24,14 @@ public class SetsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getIntent().getStringExtra("title"));
+        getSupportActionBar().setTitle(getIntent().getStringExtra(getString(R.string.title)));
 
         loadAds();
 
 
+        GridView gridView = findViewById(R.id.gridview);
 
-        gridView = findViewById(R.id.gridview);
-
-        GridAdapter adapter = new GridAdapter(getIntent().getIntExtra("sets",0),getIntent().getStringExtra("title"),mInterstitialAd);
+        GridAdapter adapter = new GridAdapter(getIntent().getIntExtra(getString(R.string.sets), 0), getIntent().getStringExtra(getString(R.string.title)), mInterstitialAd);
 
         gridView.setAdapter(adapter);
 
@@ -42,8 +39,7 @@ public class SetsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);

@@ -1,11 +1,11 @@
 package com.harish.usdrivinglicensetest;
 
 public class QuestionModel {
-    private String question, optionA, optionB, optionC, optionD, correctAns,img_url;
+    private String question, optionA, optionB, optionC, optionD, correctAns, img_url;
 
     private int setNo;
 
-    public QuestionModel(){
+    public QuestionModel() {
         //For Firebase
     }
 
@@ -81,6 +81,6 @@ public class QuestionModel {
         this.optionC = optionC;
         this.optionD = optionD;
         this.correctAns = correctAns;
-        this.img_url=img_url;
+        this.img_url = img_url;
     }
 }

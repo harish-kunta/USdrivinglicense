@@ -1,9 +1,24 @@
 <resources>
-    <string name="app_name">Dr. Driving: US DMV test</string>
-    <string name="sets">Sets</string>
-    <string name="banner_id">ca-app-pub-3305970522368959/8674970941</string>
-    <string name="intertitial_ad_id">ca-app-pub-3305970522368959/6361451180</string>
+    <string name="app_name">US DMV: practise test</string>
+    <string name="banner_id">ca-app-pub-2774880061073636/9113181494</string>
+    <string name="intertitial_ad_id">ca-app-pub-2774880061073636/2997036148</string>
     <string name="help_message">
         Start - This contains numerous sets of questions for each chosen state (50 U.S. states).\n\nStarred - When you click on the start in the Test mode, the question will be saved here.
     </string>
+    <string name="saved">SAVED QUESTIONS</string>
+    <string name="item_removed">Item was removed from the list.</string>
+    <string name="select_your_state">Select your State</string>
+    <string name="states">States</string>
+    <string name="name">name</string>
+    <string name="title">title</string>
+    <string name="sets">sets</string>
+    <string name="category">category</string>
+    <string name="set_no">setNo</string>
+    <string name="ok">OK</string>
+    <string name="score">score</string>
+    <string name="total">total</string>
+    <string name="question_removed_from_starred_list">Question removed from Starred list</string>
+    <string name="question_added_to_starred_list">Question added to Starred list</string>
+    <string name="questions">questions</string>
+    <string name="SETS">SETS</string>
 </resources>

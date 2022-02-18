@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ScrollView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -18,19 +17,15 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button startBtn,bookmarkBtn;
-    private FirebaseAnalytics mFirebaseAnalytics;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-        startBtn = findViewById(R.id.start_btn);
-        bookmarkBtn= findViewById(R.id.bookmarks_btn);
+        Button startBtn = findViewById(R.id.start_btn);
+        Button bookmarkBtn = findViewById(R.id.bookmarks_btn);
 
         MobileAds.initialize(this);
 
@@ -77,15 +72,13 @@ public class MainActivity extends AppCompatActivity {
 
                 builder
                         .setPositiveButton(
-                                "OK",
+                                R.string.ok,
                                 new DialogInterface
                                         .OnClickListener() {
 
                                     @Override
                                     public void onClick(DialogInterface dialog,
-                                                        int which)
-                                    {
-
+                                                        int which) {
                                         // When the user click yes button
                                         // then app will close
                                         dialog.cancel();
@@ -99,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // Create the Alert dialog
                 final AlertDialog alertDialog = builder.create();
-                alertDialog.setOnShowListener( new DialogInterface.OnShowListener() {
+                alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                     @Override
                     public void onShow(DialogInterface arg0) {
                         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));

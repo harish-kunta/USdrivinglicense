@@ -1,5 +1,6 @@
 package com.harish.usdrivinglicensetest;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +14,11 @@ import com.google.android.gms.ads.InterstitialAd;
 
 public class GridAdapter extends BaseAdapter {
 
-    private int sets = 0;
+    private final int sets;
 
-    private  String category;
+    private final String category;
 
-    private InterstitialAd interstitialAd;
+    private final InterstitialAd interstitialAd;
 
     public GridAdapter(int sets, String category, InterstitialAd interstitialAd) {
 
@@ -56,35 +57,31 @@ public class GridAdapter extends BaseAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                interstitialAd.setAdListener(new AdListener(){
+                final Context context = parent.getContext();
+                interstitialAd.setAdListener(new AdListener() {
                     @Override
                     public void onAdClosed() {
                         super.onAdClosed();
-
                         interstitialAd.loadAd(new AdRequest.Builder().build());
-
                         Intent questionIntent = new Intent(parent.getContext(), QuestionsActivity.class);
-                        questionIntent.putExtra("category",category);
-                        questionIntent.putExtra("setNo",position+1);
+                        questionIntent.putExtra(context.getString(R.string.category), category);
+                        questionIntent.putExtra(context.getString(R.string.set_no), position + 1);
                         parent.getContext().startActivity(questionIntent);
                     }
                 });
-                if(interstitialAd.isLoaded()){
+                if (interstitialAd.isLoaded()) {
                     interstitialAd.show();
                     return;
                 }
 
-
-
                 Intent questionIntent = new Intent(parent.getContext(), QuestionsActivity.class);
-                questionIntent.putExtra("category",category);
-                questionIntent.putExtra("setNo",position+1);
+                questionIntent.putExtra(context.getString(R.string.category), category);
+                questionIntent.putExtra(context.getString(R.string.set_no), position + 1);
                 parent.getContext().startActivity(questionIntent);
             }
         });
 
-        ((TextView)view.findViewById(R.id.textview)).setText(String.valueOf(position+1));
+        ((TextView) view.findViewById(R.id.textview)).setText(String.valueOf(position + 1));
 
         return view;
     }
