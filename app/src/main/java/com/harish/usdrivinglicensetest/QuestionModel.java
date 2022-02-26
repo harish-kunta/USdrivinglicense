@@ -1,7 +1,33 @@
 package com.harish.usdrivinglicensetest;
 
 public class QuestionModel {
-    private String question, optionA, optionB, optionC, optionD, correctAns, img_url;
+    private String question;
+    private String optionA;
+    private String optionB;
+    private String optionC;
+    private String optionD;
+    private String correctAns;
+    private String img_url = "";
+    private String explanation;
+    public QuestionModel(String question, String optionA, String optionB, String optionC, String optionD, String correctAns, String img_url, String explanation, int setNo) {
+        this.question = question;
+        this.optionA = optionA;
+        this.optionB = optionB;
+        this.optionC = optionC;
+        this.optionD = optionD;
+        this.correctAns = correctAns;
+        this.img_url = img_url;
+        this.explanation = explanation;
+        this.setNo = setNo;
+    }
+
+    public String getExplanation() {
+        return explanation;
+    }
+
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
+    }
 
     private int setNo;
 
@@ -73,14 +99,5 @@ public class QuestionModel {
         this.img_url = img_url;
     }
 
-    public QuestionModel(String question, String optionA, String optionB, String optionC, String optionD, String correctAns, int setNo, String img_url) {
-        this.setNo = setNo;
-        this.question = question;
-        this.optionA = optionA;
-        this.optionB = optionB;
-        this.optionC = optionC;
-        this.optionD = optionD;
-        this.correctAns = correctAns;
-        this.img_url = img_url;
-    }
+
 }

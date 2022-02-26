@@ -13,7 +13,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,21 +20,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
         Button startBtn = findViewById(R.id.start_btn);
         Button bookmarkBtn = findViewById(R.id.bookmarks_btn);
-
         MobileAds.initialize(this);
-
         loadAds();
-
-
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent categoryIntent = new Intent(MainActivity.this, CategoriesActivity.class);
+                Intent categoryIntent = new Intent(MainActivity.this, StatesActivity.class);
                 startActivity(categoryIntent);
             }
         });

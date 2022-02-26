@@ -1,12 +1,21 @@
 package com.harish.usdrivinglicensetest;
 
-public class CategoryModel {
+public class SetsModel {
     private String name;
     private String url;
     private int sets;
+    private int set_no;
 
-    public CategoryModel() {
+    public SetsModel() {
         //For firebase
+    }
+
+    public int getSet_no() {
+        return set_no;
+    }
+
+    public void setSet_no(int set_no) {
+        this.set_no = set_no;
     }
 
     public String getName() {
@@ -33,9 +42,4 @@ public class CategoryModel {
         this.sets = sets;
     }
 
-    public CategoryModel(String name, String url, int sets) {
-        this.name = name;
-        this.url = url;
-        this.sets = sets;
-    }
 }

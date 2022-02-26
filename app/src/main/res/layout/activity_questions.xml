@@ -132,11 +132,22 @@
             android:background="@drawable/rounded_borders"
             android:backgroundTint="#989898"
             />
+
+        <TextView
+            android:id="@+id/explanation"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/category_bg"
+            android:padding="16dp"
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
         <Button
             android:id="@+id/share_btn"
             android:layout_width="0dp"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -153,6 +164,7 @@
     <Button
         android:id="@+id/next_btn"
         android:layout_width="0dp"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:enabled="false"

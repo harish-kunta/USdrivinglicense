@@ -51,7 +51,7 @@ public class QuestionsActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
 
-    private TextView question, noIndicator;
+    private TextView question, noIndicator, explanation;
     private FloatingActionButton bookmarkBtn;
     private LinearLayout optionsContainer;
     private Button shareBtn, nextBtn;
@@ -88,6 +88,7 @@ public class QuestionsActivity extends AppCompatActivity {
         nextBtn = findViewById(R.id.next_btn);
         questionImage = findViewById(R.id.imageView);
         questionsView = findViewById(R.id.questions_view);
+        explanation = findViewById(R.id.explanation);
 
         loadAds();
 
@@ -113,7 +114,7 @@ public class QuestionsActivity extends AppCompatActivity {
             }
         });
 
-        String category = getIntent().getStringExtra(getString(R.string.category));
+        String state = getIntent().getStringExtra(getString(R.string.state));
 
         int setNo = getIntent().getIntExtra(getString(R.string.set_no), 1);
 
@@ -126,8 +127,8 @@ public class QuestionsActivity extends AppCompatActivity {
         list = new ArrayList<>();
 
         loadingDialog.show();
-        assert category != null;
-        myRef.child(getString(R.string.SETS)).child(category).child(getString(R.string.questions)).addListenerForSingleValueEvent(new ValueEventListener() {
+        assert state != null;
+        myRef.child(getString(R.string.sets_v2)).child(state).child("set_"+setNo).child(getString(R.string.questions)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
@@ -140,6 +141,9 @@ public class QuestionsActivity extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 checkAnswer((Button) v);
+                                nextBtn.setVisibility(View.VISIBLE);
+                                explanation.setVisibility(View.VISIBLE);
+                                playAnim(explanation, 0, list.get(position).getExplanation());
                             }
                         });
                     }

@@ -18,36 +18,38 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewholder> {
+public class SetsAdapter extends RecyclerView.Adapter<SetsAdapter.Viewholder> {
 
-    private final List<CategoryModel> categoryModelList;
+    private final List<SetsModel> setsModelList;
+    private final String state;
 
-    public CategoryAdapter(List<CategoryModel> categoryModelList) {
-        this.categoryModelList = categoryModelList;
+    public SetsAdapter(List<SetsModel> setsModelList, String state) {
+        this.setsModelList = setsModelList;
+        this.state = state;
     }
 
-    static class Viewholder extends RecyclerView.ViewHolder {
+    class Viewholder extends RecyclerView.ViewHolder {
         private final CircleImageView imageView;
-        private final TextView title;
+        private final TextView testTitle;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.image_view);
-            title = itemView.findViewById(R.id.title);
+            testTitle = itemView.findViewById(R.id.title);
         }
 
-        private void setData(String url, final String title, final int sets) {
+        private void setData(String url, final String testName, final int setNo) {
             Glide.with(itemView.getContext()).load(url).into(imageView);
-            this.title.setText(title);
+            this.testTitle.setText(testName);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Context context = itemView.getContext();
-                    Intent setIntent = new Intent(context, SetsActivity.class);
-                    setIntent.putExtra(context.getString(R.string.title), title);
-                    setIntent.putExtra(context.getString(R.string.sets), sets);
+                    Intent setIntent = new Intent(context, TestIntroActivity.class);
+                    setIntent.putExtra(context.getString(R.string.state), state);
+                    setIntent.putExtra(context.getString(R.string.set_no), setNo);
                     itemView.getContext().startActivity(setIntent);
                 }
             });
@@ -57,19 +59,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Viewho
 
     @NonNull
     @Override
-    public CategoryAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SetsAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item, parent, false);
         return new Viewholder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryAdapter.Viewholder holder, int position) {
-        holder.setData(categoryModelList.get(position).getUrl(), categoryModelList.get(position).getName(), categoryModelList.get(position).getSets());
+    public void onBindViewHolder(@NonNull SetsAdapter.Viewholder holder, int position) {
+        holder.setData(setsModelList.get(position).getUrl(), setsModelList.get(position).getName(), setsModelList.get(position).getSet_no());
     }
 
     @Override
     public int getItemCount() {
-        return categoryModelList.size();
+        return setsModelList.size();
     }
 
 }

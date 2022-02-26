@@ -25,13 +25,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoriesActivity extends AppCompatActivity {
+public class StatesActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
 
     private Dialog loadingDialog;
-    private List<CategoryModel> list;
+    private List<StateModel> list;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -60,7 +60,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
         list = new ArrayList<>();
 
-        final CategoryAdapter adapter = new CategoryAdapter(list);
+        final StatesAdapter adapter = new StatesAdapter(list);
         recyclerView.setAdapter(adapter);
 
         loadingDialog.show();
@@ -68,7 +68,7 @@ public class CategoriesActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
-                    list.add(dataSnapshot1.getValue(CategoryModel.class));
+                    list.add(dataSnapshot1.getValue(StateModel.class));
                 }
                 adapter.notifyDataSetChanged();
                 loadingDialog.dismiss();
@@ -76,7 +76,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(CategoriesActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(StatesActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                 loadingDialog.dismiss();
                 finish();
             }

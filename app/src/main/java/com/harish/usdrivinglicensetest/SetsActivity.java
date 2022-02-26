@@ -1,21 +1,40 @@
 package com.harish.usdrivinglicensetest;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SetsActivity extends AppCompatActivity {
 
     private InterstitialAd mInterstitialAd;
-
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference();
+    DatabaseReference stateRef;
+    private List<SetsModel> list;
+    private Dialog loadingDialog;
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,17 +43,51 @@ public class SetsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getIntent().getStringExtra(getString(R.string.title)));
+        String state = getIntent().getStringExtra(getString(R.string.state));
+        getSupportActionBar().setTitle(state);
 
         loadAds();
 
+        loadingDialog = new Dialog(this);
+        loadingDialog.setContentView(R.layout.loading);
+        loadingDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.rounded_corners));
+        loadingDialog.getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        loadingDialog.setCancelable(false);
 
-        GridView gridView = findViewById(R.id.gridview);
+        RecyclerView recyclerView = findViewById(R.id.sets_rv);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
 
-        GridAdapter adapter = new GridAdapter(getIntent().getIntExtra(getString(R.string.sets), 0), getIntent().getStringExtra(getString(R.string.title)), mInterstitialAd);
+        recyclerView.setLayoutManager(layoutManager);
+        stateRef = myRef.child(getString(R.string.sets_v2)).child(state);
+        list = new ArrayList<>();
 
-        gridView.setAdapter(adapter);
+        final SetsAdapter adapter = new SetsAdapter(list, state);
+        recyclerView.setAdapter(adapter);
 
+//        GridView gridView = findViewById(R.id.gridview);
+//
+////        GridAdapter adapter = new GridAdapter(getIntent().getIntExtra(getString(R.string.sets), 0), getIntent().getStringExtra(getString(R.string.title)), mInterstitialAd);
+////
+////        gridView.setAdapter(adapter);
+
+        stateRef.orderByChild(getString(R.string.name)).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                    list.add(dataSnapshot1.getValue(SetsModel.class));
+                }
+                adapter.notifyDataSetChanged();
+                loadingDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(SetsActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                loadingDialog.dismiss();
+                finish();
+            }
+        });
     }
 
     @Override
