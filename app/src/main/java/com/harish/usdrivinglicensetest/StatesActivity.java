@@ -32,6 +32,7 @@ public class StatesActivity extends AppCompatActivity {
 
     private Dialog loadingDialog;
     private List<StateModel> list;
+    StatesAdapter adapter;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -60,10 +61,15 @@ public class StatesActivity extends AppCompatActivity {
 
         list = new ArrayList<>();
 
-        final StatesAdapter adapter = new StatesAdapter(list);
+        adapter = new StatesAdapter(list);
         recyclerView.setAdapter(adapter);
-
         loadingDialog.show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        list.clear();
         myRef.child(getString(R.string.states)).orderByChild(getString(R.string.name)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

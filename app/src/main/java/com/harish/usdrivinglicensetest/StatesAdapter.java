@@ -1,7 +1,10 @@
 package com.harish.usdrivinglicensetest;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +48,9 @@ public class StatesAdapter extends RecyclerView.Adapter<StatesAdapter.Viewholder
                 @Override
                 public void onClick(View v) {
                     Context context = itemView.getContext();
+                    SharedPreferences.Editor editor = context.getSharedPreferences(UserSettings.PREFERENCES,MODE_PRIVATE).edit();
+                    editor.putString(UserSettings.SELECTED_STATE, state);
+                    editor.apply();
                     Intent setIntent = new Intent(context, SetsActivity.class);
                     setIntent.putExtra(context.getString(R.string.state), state);
                     itemView.getContext().startActivity(setIntent);

@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -34,6 +36,7 @@ public class SetsActivity extends AppCompatActivity {
     DatabaseReference stateRef;
     private List<SetsModel> list;
     private Dialog loadingDialog;
+    SetsAdapter adapter;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public class SetsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String state = getIntent().getStringExtra(getString(R.string.state));
         getSupportActionBar().setTitle(state);
 
@@ -62,15 +65,8 @@ public class SetsActivity extends AppCompatActivity {
         stateRef = myRef.child(getString(R.string.sets_v2)).child(state);
         list = new ArrayList<>();
 
-        final SetsAdapter adapter = new SetsAdapter(list, state);
+        adapter = new SetsAdapter(list, state);
         recyclerView.setAdapter(adapter);
-
-//        GridView gridView = findViewById(R.id.gridview);
-//
-////        GridAdapter adapter = new GridAdapter(getIntent().getIntExtra(getString(R.string.sets), 0), getIntent().getStringExtra(getString(R.string.title)), mInterstitialAd);
-////
-////        gridView.setAdapter(adapter);
-
         stateRef.orderByChild(getString(R.string.name)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -91,12 +87,26 @@ public class SetsActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.right_menu, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.settings:
+                //Do Whatever you want to do here.
+                Intent setIntent = new Intent(this, SettingsActivity.class);
+                startActivity(setIntent);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     private void loadAds() {
         AdView mAdView = findViewById(R.id.adView);

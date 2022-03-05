@@ -39,7 +39,7 @@ public class SetsAdapter extends RecyclerView.Adapter<SetsAdapter.Viewholder> {
             testTitle = itemView.findViewById(R.id.title);
         }
 
-        private void setData(String url, final String testName, final int setNo) {
+        private void setData(String url, final String testName, final int setNo, final String explanation) {
             Glide.with(itemView.getContext()).load(url).into(imageView);
             this.testTitle.setText(testName);
 
@@ -50,6 +50,7 @@ public class SetsAdapter extends RecyclerView.Adapter<SetsAdapter.Viewholder> {
                     Intent setIntent = new Intent(context, TestIntroActivity.class);
                     setIntent.putExtra(context.getString(R.string.state), state);
                     setIntent.putExtra(context.getString(R.string.set_no), setNo);
+                    setIntent.putExtra(context.getString(R.string.explanation), explanation);
                     itemView.getContext().startActivity(setIntent);
                 }
             });
@@ -66,7 +67,7 @@ public class SetsAdapter extends RecyclerView.Adapter<SetsAdapter.Viewholder> {
 
     @Override
     public void onBindViewHolder(@NonNull SetsAdapter.Viewholder holder, int position) {
-        holder.setData(setsModelList.get(position).getUrl(), setsModelList.get(position).getName(), setsModelList.get(position).getSet_no());
+        holder.setData(setsModelList.get(position).getUrl(), setsModelList.get(position).getName(), setsModelList.get(position).getSet_no(), setsModelList.get(position).getExplanation());
     }
 
     @Override

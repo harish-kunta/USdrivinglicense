@@ -3,8 +3,8 @@ package com.harish.usdrivinglicensetest;
 public class SetsModel {
     private String name;
     private String url;
-    private int sets;
     private int set_no;
+    private String explanation;
 
     public SetsModel() {
         //For firebase
@@ -34,12 +34,11 @@ public class SetsModel {
         this.url = url;
     }
 
-    public int getSets() {
-        return sets;
+    public String getExplanation() {
+        return explanation;
     }
 
-    public void setSets(int sets) {
-        this.sets = sets;
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
     }
-
 }
