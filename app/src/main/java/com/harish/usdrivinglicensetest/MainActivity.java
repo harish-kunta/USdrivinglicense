@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         Button startBtn = findViewById(R.id.start_btn);
         Button bookmarkBtn = findViewById(R.id.bookmarks_btn);
         MobileAds.initialize(this);
-        loadAds();
+//        loadAds();
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,23 +92,22 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                // Show the Alert Dialog box
+                // Show the Alert Dialog boxx
                 alertDialog.show();
             }
         });
     }
 
     private void loadPreferences() {
-        SharedPreferences sharedPreferences = getSharedPreferences(UserSettings.PREFERENCES,MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(UserSettings.PREFERENCES, MODE_PRIVATE);
         String state = sharedPreferences.getString(UserSettings.SELECTED_STATE, "None");
-        if(!state.equals("None")){
+        if (!state.equals("None")) {
             Intent setIntent = new Intent(this, SetsActivity.class);
             setIntent.putExtra(getString(R.string.state), state);
             startActivity(setIntent);
             finish();
         }
     }
-
 
 
     private void loadAds() {

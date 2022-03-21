@@ -90,7 +90,7 @@ public class QuestionsActivity extends AppCompatActivity {
         questionsView = findViewById(R.id.questions_view);
         explanation = findViewById(R.id.explanation);
 
-        loadAds();
+//        loadAds();
 
         preferences = getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         editor = preferences.edit();
@@ -175,6 +175,7 @@ public class QuestionsActivity extends AppCompatActivity {
                             count = 0;
                             playAnim(question, 0, list.get(position).getQuestion());
                             playAnim(questionImage, 0, list.get(position).getimg_url());
+                            explanation.setVisibility(View.GONE);
                         }
                     });
 

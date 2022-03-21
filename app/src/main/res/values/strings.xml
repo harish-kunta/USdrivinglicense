@@ -62,6 +62,7 @@
     <string name="restricated_mode_description">Restricted Mode</string>
     <string name="prefs_enable_stats">prefs_enable_stats</string>
     <string name="enable_stats">Enable stats for nerds</string>
+    <string name="change_state">change_state</string>
 
     <string-array name="pref_upload_quality_entries">
         <item>360p</item>

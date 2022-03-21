@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -37,6 +38,7 @@ public class SetsActivity extends AppCompatActivity {
     private List<SetsModel> list;
     private Dialog loadingDialog;
     SetsAdapter adapter;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +46,23 @@ public class SetsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sets);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+//        loadAds();
+    }
 
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        String state = getIntent().getStringExtra(getString(R.string.state));
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.right_menu, menu);
+        return true;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = getSharedPreferences(UserSettings.PREFERENCES, MODE_PRIVATE);
+        String state = sharedPreferences.getString(UserSettings.SELECTED_STATE, "None");
         getSupportActionBar().setTitle(state);
-
-        loadAds();
 
         loadingDialog = new Dialog(this);
         loadingDialog.setContentView(R.layout.loading);
@@ -67,30 +80,27 @@ public class SetsActivity extends AppCompatActivity {
 
         adapter = new SetsAdapter(list, state);
         recyclerView.setAdapter(adapter);
-        stateRef.orderByChild(getString(R.string.name)).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
-                    list.add(dataSnapshot1.getValue(SetsModel.class));
+        try {
+            stateRef.orderByChild(getString(R.string.name)).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                        list.add(dataSnapshot1.getValue(SetsModel.class));
+                    }
+                    adapter.notifyDataSetChanged();
+                    loadingDialog.dismiss();
                 }
-                adapter.notifyDataSetChanged();
-                loadingDialog.dismiss();
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(SetsActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                loadingDialog.dismiss();
-                finish();
-            }
-        });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.right_menu, menu);
-        return true;
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(SetsActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    loadingDialog.dismiss();
+                    finish();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -112,12 +122,8 @@ public class SetsActivity extends AppCompatActivity {
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getResources().getString(R.string.intertitial_ad_id));
-
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-
     }
 }

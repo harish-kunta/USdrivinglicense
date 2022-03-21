@@ -30,8 +30,7 @@ public class ScoreActivity extends AppCompatActivity {
         TextView summary = findViewById(R.id.summary);
         gifImageView = findViewById(R.id.gifImageView2);
 
-
-        loadAds();
+//        loadAds();
         try {
             score = (double) getIntent().getIntExtra(getString(R.string.score), 0);
             total_score = (double) getIntent().getIntExtra(getString(R.string.total), 0);

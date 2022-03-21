@@ -45,7 +45,7 @@ public class StatesActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.select_your_state);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        loadAds();
+//        loadAds();
         loadingDialog = new Dialog(this);
         loadingDialog.setContentView(R.layout.loading);
         loadingDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.rounded_corners));
