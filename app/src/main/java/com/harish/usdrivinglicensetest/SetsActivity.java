@@ -17,9 +17,9 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.AdView;
+//import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +31,7 @@ import java.util.List;
 
 public class SetsActivity extends AppCompatActivity {
 
-    private InterstitialAd mInterstitialAd;
+//    private InterstitialAd mInterstitialAd;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference();
     DatabaseReference stateRef;
@@ -118,12 +118,12 @@ public class SetsActivity extends AppCompatActivity {
     }
 
 
-    private void loadAds() {
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getResources().getString(R.string.intertitial_ad_id));
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-    }
+//    private void loadAds() {
+//        AdView mAdView = findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId(getResources().getString(R.string.intertitial_ad_id));
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//    }
 }

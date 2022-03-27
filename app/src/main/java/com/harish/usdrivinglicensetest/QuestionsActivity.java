@@ -24,10 +24,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
+//import com.google.android.gms.ads.AdListener;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.AdView;
+//import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
@@ -69,7 +69,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private Gson gson;
     private int matchedQuestionPosition;
 
-    private InterstitialAd mInterstitialAd;
+//    private InterstitialAd mInterstitialAd;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -156,15 +156,17 @@ public class QuestionsActivity extends AppCompatActivity {
                         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                         @Override
                         public void onClick(View v) {
+                            loadingDialog.show();
+                            enableOption(false);
+                            nextBtn.setVisibility(View.GONE);
                             nextBtn.setEnabled(false);
                             nextBtn.setAlpha(0.7f);
-                            enableOption(true);
                             position++;
                             if (position == list.size()) {   // Score Activity
-                                if (mInterstitialAd.isLoaded()) {
-                                    mInterstitialAd.show();
-                                    return;
-                                }
+//                                if (mInterstitialAd.isLoaded()) {
+//                                    mInterstitialAd.show();
+//                                    return;
+//                                }
                                 Intent scoreIntent = new Intent(QuestionsActivity.this, ScoreActivity.class);
                                 scoreIntent.putExtra("score", score);
                                 scoreIntent.putExtra("total", list.size());
@@ -176,6 +178,8 @@ public class QuestionsActivity extends AppCompatActivity {
                             playAnim(question, 0, list.get(position).getQuestion());
                             playAnim(questionImage, 0, list.get(position).getimg_url());
                             explanation.setVisibility(View.GONE);
+                            enableOption(true);
+                            loadingDialog.dismiss();
                         }
                     });
 
@@ -219,7 +223,7 @@ public class QuestionsActivity extends AppCompatActivity {
     }
 
     private void playAnim(final View view, final int value, final String data) {
-        view.animate().alpha(value).scaleX(value).scaleY(value).setDuration(100).setStartDelay(50)
+        view.animate().alpha(value).scaleX(value).scaleY(value).setDuration(50).setStartDelay(25)
                 .setInterpolator(new DecelerateInterpolator()).setListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
@@ -363,29 +367,29 @@ public class QuestionsActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    private void loadAds() {
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getResources().getString(R.string.intertitial_ad_id));
-
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                super.onAdClosed();
-                mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-                Intent scoreIntent = new Intent(QuestionsActivity.this, ScoreActivity.class);
-                scoreIntent.putExtra(getString(R.string.score), score);
-                scoreIntent.putExtra(getString(R.string.total), list.size());
-                startActivity(scoreIntent);
-                finish();
-
-            }
-        });
-    }
+//    private void loadAds() {
+//        AdView mAdView = findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+//
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId(getResources().getString(R.string.intertitial_ad_id));
+//
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//
+//        mInterstitialAd.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdClosed() {
+//                super.onAdClosed();
+//                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//
+//                Intent scoreIntent = new Intent(QuestionsActivity.this, ScoreActivity.class);
+//                scoreIntent.putExtra(getString(R.string.score), score);
+//                scoreIntent.putExtra(getString(R.string.total), list.size());
+//                startActivity(scoreIntent);
+//                finish();
+//
+//            }
+//        });
+//    }
 }

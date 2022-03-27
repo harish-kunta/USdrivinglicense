@@ -1,17 +1,22 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     defaultConfig {
         applicationId "com.harish.usdrivinglicensetest"
         minSdkVersion 17
-        targetSdkVersion 29
-        versionCode 4
+        targetSdkVersion 30
+        versionCode 6
         versionName "1.0"
         multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {
@@ -44,7 +49,7 @@ dependencies {
     // Add the Firebase Crashlytics SDK.
     implementation 'com.google.firebase:firebase-crashlytics:17.1.1'
     implementation 'com.google.firebase:firebase-perf:19.0.8'
-    implementation 'com.google.android.gms:play-services-ads:19.3.0'
+//    implementation 'com.google.android.gms:play-services-ads:19.3.0'
     implementation 'com.android.support:multidex:1.0.3'
     def preference_version = "1.2.0"
 

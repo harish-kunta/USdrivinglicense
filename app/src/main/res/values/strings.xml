@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">US DMV: practice test</string>
-    <string name="banner_id">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="intertitial_ad_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="app_name">US DMV practice test</string>
+<!--    <string name="banner_id">ca-app-pub-3940256099942544/6300978111</string>-->
+<!--    <string name="intertitial_ad_id">ca-app-pub-3940256099942544/1033173712</string>-->
     <string name="help_message">
         Start - This contains numerous sets of questions for each chosen state (50 U.S. states).\n\nSaved Questions - When you click on the star icon in the Test, the question will be saved here.
     </string>
@@ -22,6 +22,7 @@
     <string name="questions">questions</string>
     <string name="sets_v2">sets_v2</string>
     <string name="explanation">explanation</string>
+    <string name="set_title">set_title</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!-- Preference Titles -->

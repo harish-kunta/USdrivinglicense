@@ -29,18 +29,18 @@ public class SetsAdapter extends RecyclerView.Adapter<SetsAdapter.Viewholder> {
     }
 
     class Viewholder extends RecyclerView.ViewHolder {
-        private final CircleImageView imageView;
+//        private final CircleImageView imageView;
         private final TextView testTitle;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
 
-            imageView = itemView.findViewById(R.id.image_view);
+//            imageView = itemView.findViewById(R.id.image_view);
             testTitle = itemView.findViewById(R.id.title);
         }
 
-        private void setData(String url, final String testName, final int setNo, final String explanation) {
-            Glide.with(itemView.getContext()).load(url).into(imageView);
+        private void setData(String url, final String testName, final int setNo) {
+//            Glide.with(itemView.getContext()).load(url).into(imageView);
             this.testTitle.setText(testName);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +50,7 @@ public class SetsAdapter extends RecyclerView.Adapter<SetsAdapter.Viewholder> {
                     Intent setIntent = new Intent(context, TestIntroActivity.class);
                     setIntent.putExtra(context.getString(R.string.state), state);
                     setIntent.putExtra(context.getString(R.string.set_no), setNo);
-                    setIntent.putExtra(context.getString(R.string.explanation), explanation);
+                    setIntent.putExtra(context.getString(R.string.set_title), testName);
                     itemView.getContext().startActivity(setIntent);
                 }
             });
@@ -61,13 +61,13 @@ public class SetsAdapter extends RecyclerView.Adapter<SetsAdapter.Viewholder> {
     @NonNull
     @Override
     public SetsAdapter.Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sets_item, parent, false);
         return new Viewholder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SetsAdapter.Viewholder holder, int position) {
-        holder.setData(setsModelList.get(position).getUrl(), setsModelList.get(position).getName(), setsModelList.get(position).getSet_no(), setsModelList.get(position).getExplanation());
+        holder.setData(setsModelList.get(position).getUrl(), setsModelList.get(position).getName(), setsModelList.get(position).getSet_no());
     }
 
     @Override

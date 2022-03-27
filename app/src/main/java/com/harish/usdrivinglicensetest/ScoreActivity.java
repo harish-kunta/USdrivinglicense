@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.AdView;
 
 import pl.droidsonroids.gif.GifImageView;
 
@@ -16,7 +16,7 @@ import pl.droidsonroids.gif.GifImageView;
 public class ScoreActivity extends AppCompatActivity {
 
     private Double percentage;
-    GifImageView gifImageView;
+//    GifImageView gifImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class ScoreActivity extends AppCompatActivity {
         TextView total = findViewById(R.id.total);
         Button doneBtn = findViewById(R.id.done_btn);
         TextView summary = findViewById(R.id.summary);
-        gifImageView = findViewById(R.id.gifImageView2);
+//        gifImageView = findViewById(R.id.gifImageView2);
 
 //        loadAds();
         try {
@@ -53,18 +53,18 @@ public class ScoreActivity extends AppCompatActivity {
         }
         if (percentage > 80) {
             summary.setText("Congratulations! You got " + percentage + "% in the test");
-
-            gifImageView.setImageResource(R.drawable.celebration);
+//            gifImageView.setImageResource(R.drawable.celebration);
 
         } else {
             summary.setText("Better luck next time! You got " + percentage + "% in the test");
-            gifImageView.setImageResource(R.drawable.lost);
+            doneBtn.setText("Try Again!!");
+//            gifImageView.setImageResource(R.drawable.lost);
         }
     }
 
-    private void loadAds() {
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-    }
+//    private void loadAds() {
+//        AdView mAdView = findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+//    }
 }
