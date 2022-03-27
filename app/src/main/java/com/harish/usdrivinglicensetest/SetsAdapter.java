@@ -29,7 +29,7 @@ public class SetsAdapter extends RecyclerView.Adapter<SetsAdapter.Viewholder> {
     }
 
     class Viewholder extends RecyclerView.ViewHolder {
-//        private final CircleImageView imageView;
+        //        private final CircleImageView imageView;
         private final TextView testTitle;
 
         public Viewholder(@NonNull View itemView) {

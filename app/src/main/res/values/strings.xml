@@ -23,6 +23,7 @@
     <string name="sets_v2">sets_v2</string>
     <string name="explanation">explanation</string>
     <string name="set_title">set_title</string>
+    <string name="number_of_questions">number_of_questions</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!-- Preference Titles -->
